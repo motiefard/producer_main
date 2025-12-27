@@ -1,0 +1,6 @@
+# Project B: Producer Requirements
+# Python packages for the Kafka producer that collects system status
+
+kafka-python==2.0.2
+psutil==5.9.8
+
