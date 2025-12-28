@@ -10,6 +10,7 @@ class SystemStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = SystemStatus
         fields = [
+            'url',
             'id',
             'timestamp',
             'created_at',
@@ -21,6 +22,8 @@ class SystemStatusSerializer(serializers.ModelSerializer):
             'disk_used',
             'disk_free',
             'raw_data',
+            'ram_total_gb',
+            'disk_total_gb',
         ]
         read_only_fields = ['id', 'created_at']
 
