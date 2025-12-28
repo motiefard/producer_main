@@ -29,8 +29,14 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS('Kafka consumer started...'))
 
-        for message in consumer:
-            self.process_message_with_retry(message.value)
+        try:
+            for message in consumer:
+                self.process_message_with_retry(message.value)
+        except KeyboardInterrupt:
+            self.stdout.write(self.style.WARNING('\nStopping consumer...'))
+        finally:
+            consumer.close()
+            self.stdout.write(self.style.SUCCESS('Kafka consumer closed.'))
 
 
     def process_message_with_retry(self, data):
@@ -39,13 +45,13 @@ class Command(BaseCommand):
                 self.process_message(data)
                 return
             except Exception as e:
-                logger.exception(
+                print(
                     f"Error processing message (attempt {attempt}): {data}"
                 )
                 if attempt < MAX_RETRIES:
                     time.sleep(RETRY_DELAY)
                 else:
-                    logger.error("Message failed after max retries")
+                    print("Message failed after max retries")
 
     
     def process_message(self, data):
@@ -61,4 +67,6 @@ class Command(BaseCommand):
             disk_total=data['disk']['total'],
             disk_used=data['disk']['used'],
             disk_free=data['disk']['free'],
+            raw_data=data, 
         )
+        self.stdout.write(self.style.SUCCESS(f"saved"))
