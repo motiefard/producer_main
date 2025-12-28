@@ -17,7 +17,6 @@ class SystemStatsProducer:
         print(f"Kafka producer initialized. Connecting to localhost:9092")
 
     def get_system_stats(self):
-        """Collect system statistics (RAM, CPU, Disk)"""
         memory = psutil.virtual_memory()
         ram_info = {
             'total': memory.total,
@@ -71,6 +70,7 @@ def runner():
         print("Press Ctrl+C to stop")
         while True:
             data = producer.get_system_stats()
+            # print('data: >>>>>', json.dumps(data, indent=2))
             
             # Send to Kafka
             success_sent = producer.send_message(data)

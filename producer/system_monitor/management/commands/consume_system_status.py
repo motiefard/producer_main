@@ -1,12 +1,9 @@
 import json
 import time
-import logging
 from kafka import KafkaConsumer
 from django.core.management.base import BaseCommand
 from django.utils.dateparse import parse_datetime
 from system_monitor.models import SystemStatus
-
-logger = logging.getLogger(__name__)
 
 KAFKA_TOPIC = 'system-status'
 KAFKA_BROKER = 'localhost:9092'
