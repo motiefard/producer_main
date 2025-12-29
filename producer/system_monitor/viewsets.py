@@ -5,16 +5,12 @@ from .serializers import SystemStatusSerializer
 
 
 class SystemStatusPagination(PageNumberPagination):
-    page_size = 20
+    page_size = 2
     page_size_query_param = 'page_size'
     max_page_size = 100
 
 
-class SystemStatusViewSet(
-    mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
-    viewsets.GenericViewSet
-):
+class SystemStatusViewSet(viewsets.ModelViewSet):
     queryset = SystemStatus.objects.all()
     serializer_class = SystemStatusSerializer
     pagination_class = SystemStatusPagination
