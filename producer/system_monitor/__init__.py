@@ -1,5 +1,1 @@
-# System Monitor App
-
-
-
 

@@ -6,3 +6,4 @@ class SystemMonitorConfig(AppConfig):
     name = 'system_monitor'
     verbose_name = 'System Monitor'
 
+
