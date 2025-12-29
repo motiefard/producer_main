@@ -2,6 +2,8 @@ from rest_framework import viewsets, mixins, filters
 from rest_framework.pagination import PageNumberPagination
 from .models import SystemStatus
 from .serializers import SystemStatusSerializer
+from drf_spectacular.utils import extend_schema, extend_schema_view
+
 
 
 class SystemStatusPagination(PageNumberPagination):
@@ -10,6 +12,10 @@ class SystemStatusPagination(PageNumberPagination):
     max_page_size = 100
 
 
+@extend_schema_view(
+    list=extend_schema(summary="a summary: list system statuses", description="...some description ..."),
+    retrieve=extend_schema(exclude=False),  # hide from Swagger
+)
 class SystemStatusViewSet(viewsets.ModelViewSet):
     queryset = SystemStatus.objects.all()
     serializer_class = SystemStatusSerializer
